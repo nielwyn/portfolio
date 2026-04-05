@@ -1,0 +1,81 @@
+:root {
+	/* Everforest Dark (Medium Contrast) */
+	--bg-dim:    #232A2E;
+	--bg0:       #2D353B;
+	--bg1:       #343F44;
+	--bg2:       #3D484D;
+	--bg3:       #475258;
+	--bg4:       #4F585E;
+	--bg5:       #56635F;
+
+	--fg:        #D3C6AA;
+	--red:       #E67E80;
+	--orange:    #E69875;
+	--yellow:    #DBBC7F;
+	--green:     #A7C080;
+	--aqua:      #83C092;
+	--blue:      #7FBBB3;
+	--purple:    #D699B6;
+
+	--grey0:     #7A8478;
+	--grey1:     #859289;
+	--grey2:     #9DA9A0;
+
+	/* Semantic aliases */
+	--color-page-bg:     var(--bg-dim);
+	--color-bg:          var(--bg0);
+	--color-border:      var(--bg3);
+	--color-primary:     var(--fg);
+	--color-dim:         var(--grey0);
+	--color-echo:        var(--grey1);
+	--color-error:       var(--red);
+	--color-link:        var(--blue);
+	--color-cursor:      var(--yellow);
+	--color-prompt-user: var(--green);
+	--color-prompt-host: var(--aqua);
+	--color-prompt-path: var(--yellow);
+
+	--font-mono:      'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+	--font-size-base: 14px;
+	--font-size-sm:   12px;
+	--line-height:    1.7;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	min-height: 100%;
+	background: var(--color-page-bg);
+	color: var(--color-primary);
+	font-family: var(--font-mono);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height);
+}
+
+a {
+	color: var(--color-link);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+::selection {
+	background: var(--yellow);
+	color: var(--bg0);
+}
+
+@media (max-width: 600px) {
+	:root {
+		--font-size-base: 12px;
+		--font-size-sm:   11px;
+	}
+}
