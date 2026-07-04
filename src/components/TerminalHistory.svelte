@@ -1,11 +1,14 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { terminal } from '$lib/stores/terminal';
 	import HistoryEntry from './HistoryEntry.svelte';
-	import { afterUpdate } from 'svelte';
+
+	let { children }: { children?: Snippet } = $props();
 
 	let scrollEl: HTMLDivElement;
 
-	afterUpdate(() => {
+	$effect(() => {
+		$terminal.history; // track — re-run whenever history changes
 		if (scrollEl) {
 			scrollEl.scrollTop = scrollEl.scrollHeight;
 		}
@@ -16,6 +19,7 @@
 	{#each $terminal.history as entry, i}
 		<HistoryEntry {entry} isLatest={i === $terminal.history.length - 1} />
 	{/each}
+	{@render children?.()}
 </div>
 
 <style>
@@ -24,16 +28,10 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		padding-bottom: 0.4em;
-		scrollbar-width: thin;
-		scrollbar-color: var(--color-dim) transparent;
+		scrollbar-width: none;
 	}
 
 	.history::-webkit-scrollbar {
-		width: 4px;
-	}
-
-	.history::-webkit-scrollbar-thumb {
-		background: var(--color-dim);
-		border-radius: 2px;
+		display: none;
 	}
 </style>

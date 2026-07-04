@@ -6,14 +6,16 @@
 </script>
 
 <div class="entry">
-	<div class="echo">
-		<span class="p-user">nielwyn</span><span class="p-sep">@</span><span
-			class="p-host">portfolio</span
-		><span class="p-sep"> </span><span class="p-path">~</span><span class="p-dollar"
-			> $&nbsp;</span
-		><span class="cmd">{entry.input}</span>
-	</div>
-	<div class="output">
+	{#if entry.input}
+		<div class="echo">
+			<span class="p-user">nielwyn</span><span class="p-sep">@</span><span
+				class="p-host">portfolio</span
+			><span class="p-sep"> </span><span class="p-path">~</span><span class="p-dollar"
+				> $&nbsp;</span
+			><span class="cmd">{entry.input}</span>
+		</div>
+	{/if}
+	<div class="output" class:no-prompt={!entry.input}>
 		{#each entry.blocks as block}
 			<OutputBlock {block} animate={isLatest} />
 		{/each}
@@ -22,7 +24,7 @@
 
 <style>
 	.entry {
-		margin-bottom: 1em;
+		margin-bottom: 0.6em;
 	}
 
 	.echo {
@@ -44,5 +46,9 @@
 
 	.output {
 		margin-top: 0.1em;
+	}
+
+	.no-prompt {
+		margin-top: 0;
 	}
 </style>

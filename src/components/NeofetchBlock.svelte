@@ -7,7 +7,6 @@
 </script>
 
 <div class="neofetch">
-	<!-- Left: avatar -->
 	<div class="nf-avatar">
 		{#if data.avatar}
 			<img src={data.avatar} alt="avatar" />
@@ -16,7 +15,6 @@
 		{/if}
 	</div>
 
-	<!-- Right: info -->
 	<div class="nf-info">
 		<div class="nf-header">
 			<span class="nf-user">{data.username}</span><span class="nf-sep">@</span><span class="nf-host">{data.host}</span>
@@ -54,7 +52,6 @@
 		line-height: 1.6;
 	}
 
-	/* ── Avatar ─────────────────────────────────────── */
 	.nf-avatar {
 		flex-shrink: 0;
 		width: 160px;
@@ -81,7 +78,6 @@
 		letter-spacing: 0.05em;
 	}
 
-	/* ── Info panel ──────────────────────────────────── */
 	.nf-info {
 		flex: 1;
 		min-width: 0;
@@ -112,7 +108,7 @@
 	.nf-label {
 		color: var(--aqua);
 		font-weight: 700;
-		min-width: 8ch;
+		min-width: 11ch;
 		flex-shrink: 0;
 	}
 
@@ -128,7 +124,6 @@
 		height: 1.6em;
 	}
 
-	/* ── Color swatches ──────────────────────────────── */
 	.nf-swatches {
 		display: flex;
 		gap: 0.4rem;

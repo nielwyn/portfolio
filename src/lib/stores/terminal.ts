@@ -73,7 +73,14 @@ function createTerminalStore() {
 		return result;
 	}
 
-	return { subscribe, submitCommand, historyUp, historyDown };
+	function inject(blocks: OutputBlock[]) {
+		update((state) => ({
+			...state,
+			history: [...state.history, { id: nextId++, input: '', blocks }]
+		}));
+	}
+
+	return { subscribe, submitCommand, historyUp, historyDown, inject };
 }
 
 export const terminal = createTerminalStore();

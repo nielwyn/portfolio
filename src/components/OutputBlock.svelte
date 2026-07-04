@@ -2,11 +2,26 @@
 	import { typewriter } from '$lib/utils/typewriter';
 	import type { OutputBlock } from '$lib/commands/types';
 	import NeofetchBlock from './NeofetchBlock.svelte';
+	import AboutCard from './cards/AboutCard.svelte';
+	import WorkCard from './cards/WorkCard.svelte';
+	import SkillsCard from './cards/SkillsCard.svelte';
+	import ProjectsCard from './cards/ProjectsCard.svelte';
+	import ContactCard from './cards/ContactCard.svelte';
 
 	let { block, animate = true }: { block: OutputBlock; animate?: boolean } = $props();
 </script>
 
-{#if block.type === 'error'}
+{#if block.type === 'about-card'}
+	<AboutCard />
+{:else if block.type === 'work-card'}
+	<WorkCard />
+{:else if block.type === 'skills-card'}
+	<SkillsCard />
+{:else if block.type === 'projects-card'}
+	<ProjectsCard />
+{:else if block.type === 'contact-card'}
+	<ContactCard />
+{:else if block.type === 'error'}
 	<div class="line error">
 		{#if animate}
 			<span use:typewriter={{ speed: 8 }}>✗  {block.content}</span>

@@ -1,19 +1,15 @@
 <script lang="ts">
-	import { person } from '$lib/data';
+	import { person, about } from '$lib/data';
 </script>
 
 <div class="card">
-	<div class="card-header">
-		<span class="icon">●</span>
-		<div>
-			<div class="name">{person.name}</div>
-			<div class="role">{person.role}</div>
-		</div>
+	<div class="card-title">About</div>
+	<div class="body">
+		{#each about.paragraphs as paragraph}
+			<p>{paragraph}</p>
+		{/each}
 	</div>
-	<div class="divider"></div>
-	<div class="card-body">
-		<p>Open to freelance and full-time roles. Reach out via the contact section.</p>
-	</div>
+	<div class="footer">{person.status}</div>
 </div>
 
 <style>
@@ -22,43 +18,33 @@
 		border: 1px solid var(--bg3);
 		border-radius: 10px;
 		overflow: hidden;
+		margin: 0.4em 0;
 	}
 
-	.card-header {
-		display: flex;
-		align-items: center;
-		gap: 0.9rem;
-		padding: 1rem 1.25rem;
-		background: var(--bg1);
-	}
-
-	.icon {
-		font-size: 1.5rem;
-		color: var(--green);
-		line-height: 1;
-	}
-
-	.name {
-		font-size: 1rem;
+	.card-title {
+		padding: 0.9rem 1.25rem;
 		font-weight: 700;
+		font-size: 0.95rem;
 		color: var(--fg);
+		background: var(--bg1);
+		border-bottom: 1px solid var(--bg3);
 	}
 
-	.role {
-		font-size: 0.78rem;
-		color: var(--grey1);
-		margin-top: 0.1rem;
-	}
-
-	.divider {
-		height: 1px;
-		background: var(--bg3);
-	}
-
-	.card-body {
+	.body {
 		padding: 1rem 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
 		color: var(--grey2);
 		font-size: 0.85rem;
 		line-height: 1.6;
+	}
+
+	.footer {
+		padding: 0.75rem 1.25rem;
+		font-size: 0.78rem;
+		color: var(--green);
+		background: var(--bg1);
+		border-top: 1px solid var(--bg3);
 	}
 </style>

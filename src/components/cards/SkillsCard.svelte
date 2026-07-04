@@ -22,6 +22,7 @@
 		border: 1px solid var(--bg3);
 		border-radius: 10px;
 		overflow: hidden;
+		margin: 0.4em 0;
 	}
 
 	.card-title {

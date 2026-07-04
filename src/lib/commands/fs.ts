@@ -1,4 +1,5 @@
 import type { CommandDef, OutputBlock } from './types';
+import { person } from '$lib/data';
 
 const CWD = '/home/nielwyn';
 
@@ -9,8 +10,8 @@ const FILES: Record<string, string[]> = {
 
 const FILE_CONTENT: Record<string, () => OutputBlock[]> = {
 	'about.txt': () => [
-		{ type: 'text', content: 'Name:  Nielwyn' },
-		{ type: 'text', content: 'Role:  Developer' },
+		{ type: 'text', content: `Name:  ${person.name}` },
+		{ type: 'text', content: `Role:  ${person.role}` },
 		{ type: 'text', content: '' },
 		{ type: 'text', content: "Run 'about' for the full bio." }
 	],
@@ -54,7 +55,6 @@ export const ls: CommandDef = {
 					const isDir = e.endsWith('/');
 					const name = isDir ? e.slice(0, -1) : e;
 					const perms = isDir ? 'drwxr-xr-x' : '-rw-r--r--';
-					const colored = isDir ? `\x1b[34m${name}\x1b[0m` : name;
 					return {
 						type: 'pre' as const,
 						content: `${perms}  1 nielwyn nielwyn  ${isDir ? '4096' : ' 512'} ${month} ${day} ${time} ${name}`
@@ -63,14 +63,7 @@ export const ls: CommandDef = {
 			];
 		}
 
-		const line = entries
-			.map((e) => {
-				const isDir = e.endsWith('/');
-				return isDir ? e : e;
-			})
-			.join('   ');
-
-		return [{ type: 'pre', content: line }];
+		return [{ type: 'pre', content: entries.join('   ') }];
 	}
 };
 

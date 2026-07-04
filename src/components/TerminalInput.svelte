@@ -1,13 +1,14 @@
 <script lang="ts">
 	import Cursor from './Cursor.svelte';
 	import { terminal } from '$lib/stores/terminal';
+	import { getCommands } from '$lib/commands/index';
 
 	let inputEl: HTMLInputElement;
 	let value = $state('');
 	let draft = $state('');
 
 	export function focus() {
-		inputEl?.focus();
+		inputEl?.focus({ preventScroll: true });
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -22,6 +23,18 @@
 			e.preventDefault();
 			value = terminal.historyDown(draft);
 			draft = value;
+		} else if (e.key === 'Tab') {
+			e.preventDefault();
+			const prefix = value.trim();
+			if (!prefix) return;
+			const names = getCommands().map((c) => c.name);
+			const matches = names.filter((n) => n.startsWith(prefix));
+			if (matches.length === 1) {
+				value = matches[0];
+				draft = value;
+			} else if (matches.length > 1) {
+				terminal.inject([{ type: 'text', content: '  ' + matches.join('   ') }]);
+			}
 		}
 	}
 
@@ -36,7 +49,6 @@
 	><span class="p-sep"> </span><span class="p-path">~</span><span class="p-dollar"> $&nbsp;</span><span
 		class="mirror">{value}</span
 	><Cursor />
-	<!-- svelte-ignore a11y_autofocus -->
 	<input
 		bind:this={inputEl}
 		bind:value
@@ -48,7 +60,6 @@
 		autocapitalize="off"
 		spellcheck={false}
 		aria-label="terminal input"
-		autofocus
 	/>
 </div>
 

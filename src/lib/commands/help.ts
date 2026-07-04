@@ -11,17 +11,20 @@ export const help: CommandDef = {
 	description: 'list available commands',
 	execute: () => {
 		const cmds = getAll();
-		const lines: OutputBlock[] = cmds.map((c) => ({
-			type: 'text',
-			content: `  ${c.name.padEnd(12)} —  ${c.description}`
-		}));
+		const lines: OutputBlock[] = cmds
+			.filter((c) => !c.hidden)
+			.map((c) => ({
+				type: 'text' as const,
+				content: `  ${c.name.padEnd(14)} ${c.description}`
+			}));
 		return [
-			{ type: 'section', content: 'Available commands' },
-			{ type: 'text', content: '' },
+			{ type: 'section', content: 'Commands' },
+			{ type: 'text',    content: '' },
 			...lines,
-			{ type: 'text', content: '' },
-			{ type: 'text', content: '  ↑ / ↓   navigate command history' },
-			{ type: 'text', content: '  clear   wipe the terminal' }
+			{ type: 'text',    content: '' },
+			{ type: 'text',    content: '  Tab      autocomplete' },
+			{ type: 'text',    content: '  ↑ / ↓   command history' },
+			{ type: 'text',    content: '  clear    wipe the terminal' }
 		];
 	}
 };

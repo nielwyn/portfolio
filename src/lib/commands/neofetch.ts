@@ -1,4 +1,5 @@
 import type { CommandDef } from './types';
+import { person } from '$lib/data';
 
 export const neofetch: CommandDef = {
 	name: 'neofetch',
@@ -8,16 +9,13 @@ export const neofetch: CommandDef = {
 			type: 'neofetch',
 			content: '',
 			neofetchData: {
-				avatar: '/avatar.jpg',
 				username: 'nielwyn',
 				host: 'portfolio',
 				info: [
-					{ label: 'Role',   value: 'Developer'             },
-					{ label: 'OS',     value: 'Arch Linux x86_64'     },
-					{ label: 'Shell',  value: 'svelte + bun'          },
-					{ label: 'Font',   value: 'JetBrains Mono'        },
-					{ label: 'WM',     value: 'SvelteKit'             },
-					{ label: 'Status', value: 'Open to opportunities'  },
+					{ label: 'Role',       value: person.role },
+					{ label: 'Focus',      value: 'Backend & cloud infrastructure' },
+					{ label: 'Experience', value: `${person.experienceYears}+ years` },
+					{ label: 'Status',     value: person.status },
 					null,
 					{ rowType: 'colors' },
 				],

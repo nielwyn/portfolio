@@ -11,7 +11,18 @@ export interface NeofetchData {
 }
 
 export interface OutputBlock {
-	type: 'text' | 'pre' | 'link' | 'error' | 'section' | 'neofetch';
+	type:
+		| 'text'
+		| 'pre'
+		| 'link'
+		| 'error'
+		| 'section'
+		| 'neofetch'
+		| 'about-card'
+		| 'work-card'
+		| 'skills-card'
+		| 'projects-card'
+		| 'contact-card';
 	content: string;
 	href?: string;
 	neofetchData?: NeofetchData;
@@ -20,5 +31,6 @@ export interface OutputBlock {
 export interface CommandDef {
 	name: string;
 	description: string;
+	hidden?: boolean;
 	execute: (args: string[]) => OutputBlock[];
 }

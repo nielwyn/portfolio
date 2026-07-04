@@ -8,19 +8,20 @@
 	{#each workHistory as job, i}
 		<div class="job" class:last={i === workHistory.length - 1}>
 			<div class="job-header">
-				<span class="badge" class:current={job.to === null}>
-					{job.to === null ? 'Current' : job.role}
-				</span>
-				<span class="dates">{job.from}{job.to ? ` → ${job.to}` : ' → present'}</span>
+				{#if job.to === null}
+					<span class="badge current">Current</span>
+				{/if}
+				<span class="dates">{job.from} → {job.to ?? 'present'}</span>
 			</div>
 
 			<div class="place">{job.role} @ {job.place}</div>
+			<p class="summary">{job.summary}</p>
 
-			<ul class="items">
-				{#each job.items as item}
-					<li>{item}</li>
+			<div class="tags">
+				{#each job.stack as tech}
+					<span class="tag">{tech}</span>
 				{/each}
-			</ul>
+			</div>
 		</div>
 	{/each}
 </div>
@@ -31,6 +32,7 @@
 		border: 1px solid var(--bg3);
 		border-radius: 10px;
 		overflow: hidden;
+		margin: 0.4em 0;
 	}
 
 	.card-title {
@@ -54,10 +56,13 @@
 	.job-header {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 		margin-bottom: 0.4rem;
 		gap: 0.5rem;
 		flex-wrap: wrap;
+	}
+
+	.job-header .dates {
+		margin-left: auto;
 	}
 
 	.badge {
@@ -87,25 +92,25 @@
 		margin-bottom: 0.5rem;
 	}
 
-	.items {
-		list-style: none;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.2rem;
-	}
-
-	.items li {
+	.summary {
 		font-size: 0.8rem;
 		color: var(--grey2);
-		padding-left: 0.9rem;
-		position: relative;
+		line-height: 1.55;
+		margin-bottom: 0.6rem;
 	}
 
-	.items li::before {
-		content: '›';
-		position: absolute;
-		left: 0;
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.tag {
+		padding: 0.2rem 0.6rem;
+		border-radius: 6px;
+		font-size: 0.72rem;
+		background: var(--bg2);
 		color: var(--aqua);
+		border: 1px solid var(--bg3);
 	}
 </style>
