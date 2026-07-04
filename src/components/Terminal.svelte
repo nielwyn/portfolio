@@ -13,8 +13,29 @@
 		inputRef?.focus();
 	}
 
+	function handlePageClick() {
+		// A click that ends a text selection is a copy gesture, not a focus
+		// request — focusing the input here would collapse the selection.
+		const sel = window.getSelection();
+		if (sel && !sel.isCollapsed) return;
+		focusInput();
+	}
+
 	function runCommand(name: string) {
 		terminal.submitCommand(name);
+		focusInput();
+	}
+
+	// Real terminals accept keystrokes without clicking the prompt first:
+	// route stray typing to the input, but leave browser shortcuts (Ctrl+C
+	// copy...) and keyboard navigation of buttons/links alone.
+	function routeKeys(e: KeyboardEvent) {
+		if (e.ctrlKey || e.metaKey || e.altKey) return;
+		const target = e.target as HTMLElement | null;
+		if (target && ['INPUT', 'TEXTAREA', 'BUTTON', 'A'].includes(target.tagName)) return;
+		const routable =
+			e.key.length === 1 || ['Backspace', 'Enter', 'ArrowUp', 'ArrowDown'].includes(e.key);
+		if (!routable) return;
 		focusInput();
 	}
 
@@ -22,17 +43,22 @@
 		terminal.submitCommand('neofetch');
 		terminal.inject([
 			{ type: 'text', content: `Last login: ${new Date().toDateString()}  on tty1` },
-			{ type: 'text', content: '' },
-			{ type: 'text', content: "  Click a section above, or type 'help' for commands." },
 			{ type: 'text', content: '' }
 		]);
 		terminal.submitCommand('about');
+		terminal.inject([
+			{ type: 'text', content: "  Click a section above, or type 'help' for commands." },
+			{ type: 'text', content: '' }
+		]);
+
+		window.addEventListener('keydown', routeKeys);
+		return () => window.removeEventListener('keydown', routeKeys);
 	});
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="page" onclick={focusInput}>
+<div class="page" onclick={handlePageClick}>
 	<AmbientBackground />
 	<div class="window">
 		<div class="window-bar">

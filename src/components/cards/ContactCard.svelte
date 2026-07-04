@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { contact, person } from '$lib/data';
+	import { contact } from '$lib/data';
 </script>
 
 <div class="card">
@@ -11,9 +11,6 @@
 				<a href={item.href} target="_blank" rel="noopener noreferrer">{item.value}</a>
 			</div>
 		{/each}
-	</div>
-	<div class="footer">
-		{person.status}
 	</div>
 </div>
 
@@ -69,13 +66,5 @@
 	a:hover {
 		color: var(--aqua);
 		text-decoration: underline;
-	}
-
-	.footer {
-		padding: 0.75rem 1.25rem;
-		font-size: 0.78rem;
-		color: var(--grey0);
-		background: var(--bg1);
-		border-top: 1px solid var(--bg3);
 	}
 </style>

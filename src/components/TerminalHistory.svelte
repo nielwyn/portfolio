@@ -16,8 +16,8 @@
 </script>
 
 <div class="history" bind:this={scrollEl}>
-	{#each $terminal.history as entry, i}
-		<HistoryEntry {entry} isLatest={i === $terminal.history.length - 1} />
+	{#each $terminal.history as entry}
+		<HistoryEntry {entry} />
 	{/each}
 	{@render children?.()}
 </div>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { typewriter } from '$lib/utils/typewriter';
 	import type { OutputBlock } from '$lib/commands/types';
 	import NeofetchBlock from './NeofetchBlock.svelte';
 	import AboutCard from './cards/AboutCard.svelte';
@@ -8,7 +7,7 @@
 	import ProjectsCard from './cards/ProjectsCard.svelte';
 	import ContactCard from './cards/ContactCard.svelte';
 
-	let { block, animate = true }: { block: OutputBlock; animate?: boolean } = $props();
+	let { block }: { block: OutputBlock } = $props();
 </script>
 
 {#if block.type === 'about-card'}
@@ -22,21 +21,9 @@
 {:else if block.type === 'contact-card'}
 	<ContactCard />
 {:else if block.type === 'error'}
-	<div class="line error">
-		{#if animate}
-			<span use:typewriter={{ speed: 8 }}>✗  {block.content}</span>
-		{:else}
-			✗  {block.content}
-		{/if}
-	</div>
+	<div class="line error">✗  {block.content}</div>
 {:else if block.type === 'section'}
-	<div class="line section">
-		{#if animate}
-			<span use:typewriter={{ speed: 6 }}>{block.content}</span>
-		{:else}
-			{block.content}
-		{/if}
-	</div>
+	<div class="line section">{block.content}</div>
 {:else if block.type === 'pre'}
 	<pre class="pre">{block.content}</pre>
 {:else if block.type === 'neofetch' && block.neofetchData}
@@ -46,13 +33,7 @@
 		<span class="link-prefix">{block.content}</span><a href={block.href} target="_blank" rel="noopener noreferrer">{block.href}</a>
 	</div>
 {:else}
-	<div class="line">
-		{#if animate && block.content}
-			<span use:typewriter={{ speed: 8 }}>{block.content}</span>
-		{:else}
-			{block.content}
-		{/if}
-	</div>
+	<div class="line">{block.content}</div>
 {/if}
 
 <style>

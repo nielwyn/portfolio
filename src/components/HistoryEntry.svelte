@@ -2,7 +2,7 @@
 	import OutputBlock from './OutputBlock.svelte';
 	import type { HistoryEntry } from '$lib/stores/terminal';
 
-	let { entry, isLatest = false }: { entry: HistoryEntry; isLatest?: boolean } = $props();
+	let { entry }: { entry: HistoryEntry } = $props();
 </script>
 
 <div class="entry">
@@ -17,7 +17,7 @@
 	{/if}
 	<div class="output" class:no-prompt={!entry.input}>
 		{#each entry.blocks as block}
-			<OutputBlock {block} animate={isLatest} />
+			<OutputBlock {block} />
 		{/each}
 	</div>
 </div>
